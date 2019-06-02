@@ -47,7 +47,7 @@ class UserController extends Controller
         $payload = [
             'password'=>\Hash::make($request->password),
             'email'=>$request->email,
-            'name'=>$request->name,
+            'name'=>$request->fname . ' ' . $request->lname,
             'auth_token'=> ''
         ];
                   
@@ -68,7 +68,7 @@ class UserController extends Controller
             $response = ['success'=>true, 'data'=>['name'=>$user->name,'id'=>$user->id,'email'=>$request->email,'auth_token'=>$token]];        
         }
         else
-            $response = ['success'=>false, 'data'=>'Couldnt register user'];
+            $response = ['success'=>false, 'data'=>'Could not register user'];
         
         
         return response()->json($response, 201);

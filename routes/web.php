@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('photos/popular', 'UnsplashController@index');
+Route::get('photos/search/{search}', 'UnsplashController@search');

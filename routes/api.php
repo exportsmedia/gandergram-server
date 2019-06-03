@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['middleware' => ['jwt.auth','api-header']], function () {
+Route::group(['middleware' => ['jwt.auth','cors']], function () {
   
     // all routes to protected resources are registered here  
     Route::get('users/list', function(){
@@ -25,12 +25,13 @@ Route::group(['middleware' => ['jwt.auth','api-header']], function () {
         return response()->json($response, 201);
     });
 
-    Route::get('photos/popular', 'UnsplashController@index');
+    Route::get('photos/popular/{page?}', 'UnsplashController@index');
+    Route::get('photos/search/{search}', 'UnsplashController@search');
 
 
 
 });
-Route::group(['middleware' => 'api-header'], function () {
+Route::group(['middleware' => 'cors'], function () {
   
     // The registration and login requests doesn't come with tokens 
     // as users at that point have not been authenticated yet
